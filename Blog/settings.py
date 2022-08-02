@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-+=d+-ad5fppk4!dlt-#+@efp0bakgb9y5kgn#-c09864la4%jo
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -50,6 +50,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'Blog.urls'
@@ -130,11 +131,18 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
+import django_heroku
+# Activate Django-Heroku.
+django_heroku.settings(locals())
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
+MEDIA_URL="/media/"
+STATICFILES_DIR=[
+    os.path.join(BASE_DIR,"static")]
+
 MEDIA_ROOT=BASE_DIR/"static"
 #
-MEDIA_URL="/media/"
-MEDIA_ROOT=BASE_DIR/"media"
 
 CKEDITOR_BASEPATH="/static/ckeditor/ckeditor/"
 CKEDITOR_UPLOAD_PATH="media/"
@@ -150,3 +158,6 @@ CLOUDINARY_STORAGE = {
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.RawMediaCloudinaryStorage'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+
