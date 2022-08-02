@@ -40,7 +40,7 @@ def Signup(request):
     url="Sign_Up.html"
     form=SignUpForm()
     if request.method=='POST':
-        form=form=SignUpForm(request.POST)
+        form=SignUpForm(request.POST)
         if form.is_valid:
             form.save()
             return redirect('blogapp:login')
